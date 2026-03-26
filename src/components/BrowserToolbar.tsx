@@ -90,13 +90,13 @@ export default function Toolbar({
 
   const displayUrl = isUrlFocused
     ? urlInput
-    : activeTab?.url?.startsWith("petezah://gameviewer")
-    ? "petezah://gameviewer"
+    : activeTab?.url?.startsWith("jacobvolter://gameviewer")
+    ? "jacobvolter://gameviewer"
     : activeTab?.url || "";
 
   const isNewTab =
     !activeTab?.url ||
-    activeTab.url === "petezah://newtab" ||
+    activeTab.url === "jacobvolter://newtab" ||
     activeTab.url === "about:blank" ||
     activeTab.url === "https://";
 
@@ -219,14 +219,14 @@ export default function Toolbar({
         <button
           className="p-1.5 rounded-lg hover:bg-accent text-foreground/50 hover:text-foreground transition-colors"
           title="Games"
-          onClick={() => onNavigate("petezah://games")}
+          onClick={() => onNavigate("jacobvolter://games")}
         >
           <Gamepad2 size={13} />
         </button>
         <button
           className="p-1.5 rounded-lg hover:bg-accent text-foreground/50 hover:text-foreground transition-colors"
           title="AI"
-          onClick={() => onNavigate("petezah://ai")}
+          onClick={() => onNavigate("jacobvolter://ai")}
         >
           <Bot size={13} />
         </button>
@@ -241,14 +241,14 @@ export default function Toolbar({
           <User size={13} />
         </button>
         <button
-          onClick={() => onNavigate("petezah://changelog")}
+          onClick={() => onNavigate("jacobvolter://changelog")}
           className="p-1.5 rounded-lg hover:bg-accent text-foreground/50 hover:text-foreground transition-colors"
           title="Changelog"
         >
           <FileText size={13} />
         </button>
         <button
-          onClick={() => onNavigate("petezah://feedback")}
+          onClick={() => onNavigate("jacobvolter://feedback")}
           className="p-1.5 rounded-lg hover:bg-accent text-foreground/50 hover:text-foreground transition-colors"
           title="Feedback"
         >
@@ -353,7 +353,7 @@ export default function Toolbar({
 
                 <button
                   onClick={() => {
-                    onNavigate("petezah://history");
+                    onNavigate("jacobvolter://history");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -366,7 +366,7 @@ export default function Toolbar({
                 </button>
                 <button
                   onClick={() => {
-                    onNavigate("petezah://extensions");
+                    onNavigate("jacobvolter://extensions");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -379,7 +379,7 @@ export default function Toolbar({
                 </button>
                 <button
                   onClick={() => {
-                    onNavigate("petezah://bookmarks");
+                    onNavigate("jacobvolter://bookmarks");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -395,7 +395,7 @@ export default function Toolbar({
 
                 <button
                   onClick={() => {
-                    onNavigate("petezah://games");
+                    onNavigate("jacobvolter://games");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -405,7 +405,7 @@ export default function Toolbar({
                 </button>
                 <button
                   onClick={() => {
-                    onNavigate("petezah://ai");
+                    onNavigate("jacobvolter://ai");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -415,7 +415,7 @@ export default function Toolbar({
                 </button>
                 <button
                   onClick={() => {
-                    onNavigate("petezah://music");
+                    onNavigate("jacobvolter://music");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -425,7 +425,7 @@ export default function Toolbar({
                 </button>
                 <button
                   onClick={() => {
-                    onNavigate("petezah://movies");
+                    onNavigate("jacobvolter://movies");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"
@@ -435,7 +435,7 @@ export default function Toolbar({
                 </button>
                 <button
                   onClick={() => {
-                    onNavigate("petezah://apps");
+                    onNavigate("jacobvolter://apps");
                     setMenuOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-4 py-2 text-[12px] text-foreground/80 hover:bg-accent hover:text-foreground transition-colors"

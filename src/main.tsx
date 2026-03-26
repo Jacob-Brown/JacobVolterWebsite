@@ -12,6 +12,25 @@ if (/CrOS/.test(navigator.userAgent)) {
   document.documentElement.classList.add('chromeos');
 }
 
+function migrateLegacyBrandingKeys() {
+  const legacyKeyMap: Record<string, string> = {
+    "petezah-history": "jacobvolter-history",
+    "petezah-bookmarks": "jacobvolter-bookmarks",
+    "petezah-extensions": "jacobvolter-extensions",
+    "petezah-presets": "jacobvolter-presets",
+    "petezah-discord-popup-last": "jacobvolter-discord-popup-last",
+  };
+
+  Object.entries(legacyKeyMap).forEach(([oldKey, newKey]) => {
+    if (!localStorage.getItem(newKey)) {
+      const oldValue = localStorage.getItem(oldKey);
+      if (oldValue !== null) {
+        localStorage.setItem(newKey, oldValue);
+      }
+    }
+  });
+}
+
 function applyStoredSettings() {
   const get = (k: string) => localStorage.getItem(k);
 
@@ -25,7 +44,7 @@ function applyStoredSettings() {
   if (siteTitle) {
     document.title = siteTitle;
   } else {
-    setTimeout(() => { document.title = "PeteZah"; }, 3000);
+    setTimeout(() => { document.title = "JacobVolter"; }, 3000);
   }
 
   const siteLogo = get("siteLogo");
@@ -89,9 +108,10 @@ function applyStoredSettings() {
   window.addEventListener("storage", (e) => {
     if (e.key === "settingsUpdated") applyStoredSettings();
   });
-  window.addEventListener("petezah-settings-updated", () => applyStoredSettings());
+  window.addEventListener("jacobvolter-settings-updated", () => applyStoredSettings());
 }
 
+migrateLegacyBrandingKeys();
 if (!localStorage.getItem("theme")) {
   localStorage.setItem("theme", "default");
   localStorage.setItem("backgroundColor", "hsl(220 30% 7%)");

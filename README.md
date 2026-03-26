@@ -1,4 +1,4 @@
-# **PeteZahGames**
+# **JacobVolterGames**
 
 A unblocked gaming site for you that self hosts over 400+ games from reliable
 sources.
@@ -20,7 +20,7 @@ You're mainly supposed to use our site at places that have restrictions.
 
 Our website is host to over 300k users!
 
-Links- You can visit [https://petezahgames.com](https://petezahgames.com), and
+Links- You can visit the live site, and
 you can get more links in our [Discord Server](https://discord.gg/unrestricted)
 
 ## Deploying
@@ -55,6 +55,24 @@ If you're using pnpm, run the following commands:
 pnpm install
 pnpm start
 ```
+
+### Local development
+
+For local proxy development, run the frontend and backend together:
+
+```bash
+pnpm run dev
+```
+
+This starts the proxy backend on port 3000 and Vite on port 5173.
+If you only need the React frontend without proxy features, use:
+
+```bash
+pnpm run dev:frontend
+```
+
+The full-stack dev entrypoint is the backend on port 3000.
+Vite runs on port 5173 behind it.
 
 If you would like to use one of the following buttons to deploy
 

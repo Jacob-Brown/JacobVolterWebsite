@@ -443,7 +443,7 @@ export default function GamesPage({ onNavigate }: GamesPageProps) {
   const handlePlay = useCallback((game: Game) => {
     if (onNavigate) {
       const resolved = resolveGameUrl(game.url);
-      onNavigate(`petezah://gameviewer?url=${encodeURIComponent(resolved)}&title=${encodeURIComponent(game.label)}`);
+      onNavigate(`jacobvolter://gameviewer?url=${encodeURIComponent(resolved)}&title=${encodeURIComponent(game.label)}`);
     }
   }, [onNavigate]);
 

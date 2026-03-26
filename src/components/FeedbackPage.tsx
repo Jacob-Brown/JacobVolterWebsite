@@ -154,7 +154,7 @@ export default function FeedbackPage({ onNavigate }: { onNavigate: (url: string)
               <p className="text-sm font-medium mb-1" style={{ color: "hsl(220 15% 55%)" }}>Sign in to leave feedback</p>
               <p className="text-xs" style={{ color: "hsl(220 15% 32%)" }}>Your account lets you track and manage your submissions</p>
             </div>
-            <button onClick={() => onNavigate("petezah://account")}
+            <button onClick={() => onNavigate("jacobvolter://account")}
               className="px-5 py-2.5 rounded-xl text-sm font-semibold"
               style={{ background: "linear-gradient(135deg, hsl(215 85% 50%), hsl(250 75% 55%))", color: "#fff" }}>
               Sign In

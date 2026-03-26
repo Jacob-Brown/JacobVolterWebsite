@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>PeteZah | Changelog</title>
+    <title>JacobVolter | Changelog</title>
     <link rel="icon" type="image/x-icon" href="/storage/images/logo-png-removebg-preview.png" />
     <link rel="stylesheet" href="/storage/css/themes.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -338,7 +338,7 @@
             ? (n.innerHTML = t.changelogs
                 .map((e) => {
                   const t = new Date(e.created_at);
-                  return `\n              <div class="changelog-item">\n                <div class="header-item">\n                  <img src="/storage/images/logo-png-removebg-preview.png" alt="PeteZah" class="author-icon">\n                  <h3>${e.title}</h3>\n                </div>\n                <div class="meta">By ${e.author_name || 'PeteZah'} • ${t.toLocaleDateString()}</div>\n                <div class="content">${e.content}</div>\n                <div style="margin-top:12px;display:flex;gap:12px;">\n                  <button class="btn" style="background:#232b36;color:#3b82f6;padding:4px 18px;font-size:1em;box-shadow:0 1px 4px rgba(59,130,246,0.04);" onclick="likeChangelog('${e.id}', this)"><i class="fa fa-thumbs-up"></i> <span class="like-count" data-id="${e.id}">0</span></button>\n                  <button class="btn" style="background:#232b36;padding:4px 18px;font-size:1em;box-shadow:0 1px 4px rgba(139,92,246,0.04);" onclick="openCommentModal('changelog','${e.id}')"><i class="fa fa-comment" style="color:#fff;"></i></button>\n                </div>\n                <div class="comments-list" id="comments-changelog-${e.id}" style="margin-top:10px;"></div>\n              </div>\n            `;
+                  return `\n              <div class="changelog-item">\n                <div class="header-item">\n                  <img src="/storage/images/logo-png-removebg-preview.png" alt="JacobVolter" class="author-icon">\n                  <h3>${e.title}</h3>\n                </div>\n                <div class="meta">By ${e.author_name || 'JacobVolter'} • ${t.toLocaleDateString()}</div>\n                <div class="content">${e.content}</div>\n                <div style="margin-top:12px;display:flex;gap:12px;">\n                  <button class="btn" style="background:#232b36;color:#3b82f6;padding:4px 18px;font-size:1em;box-shadow:0 1px 4px rgba(59,130,246,0.04);" onclick="likeChangelog('${e.id}', this)"><i class="fa fa-thumbs-up"></i> <span class="like-count" data-id="${e.id}">0</span></button>\n                  <button class="btn" style="background:#232b36;padding:4px 18px;font-size:1em;box-shadow:0 1px 4px rgba(139,92,246,0.04);" onclick="openCommentModal('changelog','${e.id}')"><i class="fa fa-comment" style="color:#fff;"></i></button>\n                </div>\n                <div class="comments-list" id="comments-changelog-${e.id}" style="margin-top:10px;"></div>\n              </div>\n            `;
                 })
                 .join(''))
             : (n.innerHTML = '<div class="empty-state">No changelog entries yet.</div>');

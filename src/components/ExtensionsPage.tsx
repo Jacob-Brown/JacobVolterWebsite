@@ -98,10 +98,10 @@ function FluidCanvas() {
 }
 
 export function getExtensions(): Extension[] {
-  try { return JSON.parse(localStorage.getItem("petezah-extensions") || "[]"); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem("jacobvolter-extensions") || "[]"); } catch { return []; }
 }
 export function saveExtensions(exts: Extension[]) {
-  try { localStorage.setItem("petezah-extensions", JSON.stringify(exts)); } catch {}
+  try { localStorage.setItem("jacobvolter-extensions", JSON.stringify(exts)); } catch {}
 }
 
 export function urlMatchesPattern(url: string, pattern: string): boolean {

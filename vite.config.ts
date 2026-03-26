@@ -3,61 +3,46 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
+const devPort = Number(process.env.VITE_PORT || 5173);
+const backendPort = Number(process.env.BACKEND_PORT || process.env.PORT || 3000);
+
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 3000,
+    port: devPort,
+    strictPort: true,
     hmr: {
       overlay: false,
     },
     proxy: {
       "/wisp": {
-        target: "ws://localhost:8080",
+        target: `ws://localhost:${backendPort}`,
         changeOrigin: true,
         ws: true,
       },
       "/api/alt-wisp-1": {
-        target: "ws://localhost:8080",
+        target: `ws://localhost:${backendPort}`,
         changeOrigin: true,
         ws: true,
       },
       "/api/alt-wisp-2": {
-        target: "ws://localhost:8080",
+        target: `ws://localhost:${backendPort}`,
         changeOrigin: true,
         ws: true,
       },
       "/api/alt-wisp-3": {
-        target: "ws://localhost:8080",
+        target: `ws://localhost:${backendPort}`,
         changeOrigin: true,
         ws: true,
       },
-      "/scramjet": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-      "/scram": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-      "/baremux": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-      "/epoxy": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-      },
-      "/libcurl": {
-        target: "http://localhost:8080",
+      "/api": {
+        target: `http://localhost:${backendPort}`,
         changeOrigin: true,
       },
       "/bare": {
-        target: "http://localhost:8080",
+        target: `http://localhost:${backendPort}`,
         changeOrigin: true,
-      },
-      "/sw.js": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
+        ws: true,
       },
     },
   },

@@ -5,7 +5,6 @@ import Sidebar from "@/components/BrowserSidebar";
 import Toolbar from "@/components/BrowserToolbar";
 import ContentArea from "@/components/ContentArea";
 import StatusBar from "@/components/StatusBar";
-import DiscordPopup from "@/components/DiscordPopup";
 
 export default function ArcBrowser() {
   const state = useBrowserState();
@@ -21,15 +20,15 @@ export default function ArcBrowser() {
       const { tabId, url } = (e as CustomEvent).detail;
       state.updateTabUrl(tabId, url);
       try {
-        const entries = JSON.parse(localStorage.getItem("petezah-history") || "[]");
+        const entries = JSON.parse(localStorage.getItem("jacobvolter-history") || "[]");
         const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}&sz=32`;
         const newEntry = { id: String(Date.now()) + Math.random(), url, title: url, favicon, visitedAt: Date.now(), isProxied: true };
         const filtered = entries.filter((entry: any) => entry.url !== url);
-        localStorage.setItem("petezah-history", JSON.stringify([newEntry, ...filtered].slice(0, 500)));
+        localStorage.setItem("jacobvolter-history", JSON.stringify([newEntry, ...filtered].slice(0, 500)));
       } catch {}
     };
-    window.addEventListener("petezah-url-change", handler);
-    return () => window.removeEventListener("petezah-url-change", handler);
+    window.addEventListener("jacobvolter-url-change", handler);
+    return () => window.removeEventListener("jacobvolter-url-change", handler);
   }, []);
 
   return (
@@ -48,7 +47,7 @@ export default function ArcBrowser() {
         onTabSplit={() => state.openSplit()}
         onAddTab={() => state.addTab()}
         onToggleCollapse={() => state.setSidebarCollapsed(!state.sidebarCollapsed)}
-        onAccountClick={() => state.navigateToUrl("petezah://account")}
+        onAccountClick={() => state.navigateToUrl("jacobvolter://account")}
         onNavigate={state.navigateToUrl}
         user={user}
       />
@@ -60,7 +59,7 @@ export default function ArcBrowser() {
           onUrlChange={state.setUrlInput}
           onUrlFocus={state.setIsUrlFocused}
           onNavigate={state.navigateToUrl}
-          onNotificationClick={() => state.navigateToUrl("petezah://account")}
+          onNotificationClick={() => state.navigateToUrl("jacobvolter://account")}
           onCloseTab={() => state.activeTab && state.closeTab(state.activeTab.id)}
           onCloseAllTabs={state.closeAllTabs}
           onNewTab={() => state.addTab()}
@@ -82,7 +81,6 @@ export default function ArcBrowser() {
           spaceCount={state.spaces.length}
         />
       </main>
-      <DiscordPopup />
     </div>
   );
 }

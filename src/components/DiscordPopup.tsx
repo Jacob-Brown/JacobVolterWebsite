@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle } from "lucide-react";
 
-const STORAGE_KEY = "petezah-discord-popup-last";
+const STORAGE_KEY = "jacobvolter-discord-popup-last";
 
 export default function DiscordPopup() {
   const [show, setShow] = useState(false);
@@ -56,7 +56,7 @@ export default function DiscordPopup() {
 
             <div className="px-5 py-6 flex flex-col gap-4">
               <p className="text-[11px] text-foreground/70 leading-relaxed font-sans">
-                Connect with the PeteZah community. Get updates, share feedback, report issues, and hang out with other users.
+                Connect with the JacobVolter community. Get updates, share feedback, report issues, and hang out with other users.
               </p>
 
               <div className="flex flex-col gap-2">

@@ -30,7 +30,7 @@ const SITE_PRESETS = [
   { id: "classroom", label: "Google Classroom", favicon: "https://ssl.gstatic.com/classroom/favicon.ico" },
   { id: "schoology",  label: "Schoology",        favicon: "https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico" },
   { id: "google",    label: "Google",            favicon: "https://www.google.com/favicon.ico" },
-  { id: "petezah",   label: "PeteZah",           favicon: "/logo.png" },
+  { id: "jacobvolter",   label: "JacobVolter",           favicon: "/logo.png" },
 ];
 
 type Section = "profile" | "appearance" | "cloaking" | "behavior" | "data" | "admin";
@@ -113,7 +113,7 @@ function applySettingsNow(s: Record<string, string>) {
   }
   Object.entries(s).forEach(([k, v]) => { if (k !== "backgroundImage") localStorage.setItem(k, v); });
   localStorage.setItem("settingsUpdated", Date.now().toString());
-  window.dispatchEvent(new CustomEvent("petezah-settings-updated"));
+  window.dispatchEvent(new CustomEvent("jacobvolter-settings-updated"));
 }
 
 function FluidCanvas({ enabled }: { enabled: boolean }) {
@@ -486,7 +486,7 @@ export default function AccountPage({ onNavigate }: { onNavigate: (url: string) 
   function exportData() {
     const data = { localStorage: Object.fromEntries(Object.keys(localStorage).map(k => [k, localStorage.getItem(k)])) };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "petezah-data.json"; a.click();
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "jacobvolter-data.json"; a.click();
   }
 
   function importData(e: React.ChangeEvent<HTMLInputElement>) {
@@ -509,7 +509,7 @@ export default function AccountPage({ onNavigate }: { onNavigate: (url: string) 
 
   function resetData() {
     if (!confirm("Reset all local settings? This cannot be undone.")) return;
-    localStorage.clear(); setS({}); document.title = "PeteZah";
+    localStorage.clear(); setS({}); document.title = "JacobVolter";
   }
 
   async function adminAction(userId: string, action: string) {
@@ -564,7 +564,7 @@ export default function AccountPage({ onNavigate }: { onNavigate: (url: string) 
               {authMode === "signin" ? "Welcome back" : "Create account"}
             </h2>
             <p style={{ fontSize: "11px", color: C.textSub, margin: 0 }}>
-              {authMode === "signin" ? "Sign in to sync your settings" : "Get started with PeteZah"}
+              {authMode === "signin" ? "Sign in to sync your settings" : "Get started with JacobVolter"}
             </p>
           </div>
 
@@ -729,8 +729,8 @@ export default function AccountPage({ onNavigate }: { onNavigate: (url: string) 
                 <div style={{ marginTop: "18px", display: "flex", flexDirection: "column", gap: "6px" }}>
                   <p style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, margin: "0 0 6px" }}>Community</p>
                   {[
-                    { label: "Changelog", desc: "See what's new", url: "petezah://changelog", icon: Megaphone },
-                    { label: "Feedback", desc: "Share your thoughts", url: "petezah://feedback", icon: MessageSquare },
+                    { label: "Changelog", desc: "See what's new", url: "jacobvolter://changelog", icon: Megaphone },
+                    { label: "Feedback", desc: "Share your thoughts", url: "jacobvolter://feedback", icon: MessageSquare },
                   ].map(({ label, desc, url, icon: Icon }) => (
                     <button key={url} onClick={() => onNavigate(url)} style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", borderRadius: "9px",
@@ -755,7 +755,7 @@ export default function AccountPage({ onNavigate }: { onNavigate: (url: string) 
             {section === "appearance" && (
               <div style={{ maxWidth: "500px" }}>
                 <h2 style={{ fontSize: "15px", fontWeight: 700, color: C.text, margin: "0 0 3px" }}>Appearance</h2>
-                <p style={{ fontSize: "11px", color: C.textSub, margin: "0 0 20px" }}>Customize the look of PeteZah</p>
+                <p style={{ fontSize: "11px", color: C.textSub, margin: "0 0 20px" }}>Customize the look of JacobVolter</p>
 
                 <p style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, margin: "0 0 10px" }}>Theme</p>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "7px", marginBottom: "22px" }}>

@@ -44,7 +44,7 @@ const SUGGESTIONS = [
   "What's a good book to read?",
 ];
 
-const SYSTEM_PROMPT = `You are PeteAI, a helpful and friendly AI assistant developed by PeteZah. Keep responses concise and natural. When answering educational or factual questions, format your response as:
+const SYSTEM_PROMPT = `You are JacobAI, a helpful and friendly AI assistant developed by JacobVolter. Keep responses concise and natural. When answering educational or factual questions, format your response as:
 Answer: [direct answer]
 [brief explanation if needed]
 For casual conversation, just respond naturally and briefly. Never reference the conversation format or mention "previous messages". Just respond naturally as if in a real conversation.`;
@@ -795,7 +795,7 @@ export default function AIPage({
   }, []);
 
   useEffect(() => {
-    const welcome = "Hey! I'm PeteAI. What can I help you with?";
+    const welcome = "Hey! I'm JacobAI. What can I help you with?";
     setMessages([{ id: "welcome", role: "ai", content: welcome }]);
     setHistory([{ role: "assistant", content: welcome }]);
   }, []);
@@ -948,7 +948,7 @@ export default function AIPage({
             {
               id: Date.now().toString(),
               role: "ai",
-              content: "Couldn't reach PeteAI. Try again.",
+              content: "Couldn't reach JacobAI. Try again.",
             },
           ]);
         }
@@ -992,11 +992,11 @@ export default function AIPage({
         <div className="flex items-center gap-3">
           <img
             src="/storage/images/logo-png-removebg-preview.png"
-            alt="PeteAI"
+            alt="JacobAI"
             className="w-7 h-7 object-contain opacity-80"
           />
           <div>
-            <h1 className="text-sm font-bold text-foreground">PeteAI</h1>
+            <h1 className="text-sm font-bold text-foreground">JacobAI</h1>
             <p className="text-[10px] text-muted-foreground">Powered by Groq</p>
           </div>
         </div>

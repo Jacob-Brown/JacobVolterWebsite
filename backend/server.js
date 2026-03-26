@@ -16,10 +16,9 @@ import { hostname } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'process';
-import BetterSqlite3Session from 'better-sqlite3-session-store';
 
 import { ddosShield } from './security/ddos-shield.js';
-import { toIPv4, systemState, createGateMiddleware, createMemoryProtection, checkCircuitBreaker, checkSystemPressure, cleanupSecurityMaps, isTrustedWS, adjustPowDifficulty } from './middleware/security.js';
+import { toIPv4, systemState, createGateMiddleware, createMemoryProtection, checkCircuitBreaker, checkSystemPressure, cleanupSecurityMaps, isTrustedWS, adjustPowDifficulty, setTokenSecret } from './middleware/security.js';
 import { authLimiter, createApiLimiter, createAiLimiter, signupLimiter } from './middleware/rate-limit.js';
 import { updateIPReputation } from './middleware/security.js';
 import challengeRouter from './routes/challenge.js';
@@ -38,13 +37,24 @@ import { getChangelogHandler, createChangelogHandler, deleteChangelogHandler } f
 import { getFeedbackHandler, createFeedbackHandler, deleteFeedbackHandler } from './api/feedback.js';
 
 const { createBareServer } = bareServerPkg;
-const SqliteStore = BetterSqlite3Session(session);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config({ path: path.join(__dirname, '.env.production') });
 dotenv.config({ path: path.join(__dirname, '.env') });
 
-if (!process.env.TOKEN_SECRET) throw new Error('TOKEN_SECRET must be set');
+const IS_DEV = process.env.NODE_ENV !== 'production';
+const VITE_PORT = parseInt(process.env.VITE_PORT || '5173');
+
+if (!process.env.TOKEN_SECRET) {
+  if (IS_DEV) {
+    process.env.TOKEN_SECRET = randomBytes(32).toString('hex');
+    console.warn('[security] TOKEN_SECRET missing; using a temporary development secret');
+  } else {
+    throw new Error('TOKEN_SECRET must be set');
+  }
+}
+
+setTokenSecret(process.env.TOKEN_SECRET);
 
 const bare = createBareServer('/bare/', { websocket: { maxPayloadLength: 4096 } });
 const barePremium = createBareServer('/api/bare-premium/', { websocket: { maxPayloadLength: 4096 } });
@@ -61,6 +71,7 @@ discordClient.systemState = systemState;
 
 const apiLimiter = createApiLimiter(shield);
 const aiLimiter = createAiLimiter(shield);
+const sessionStore = await createSessionStore();
 
 app.use(cookieParser());
 app.use(compression({ level: 6, threshold: 1024 }));
@@ -74,7 +85,7 @@ app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true, limit: '5mb', parameterLimit: 100 }));
 
 app.use(session({
-  store: new SqliteStore({ client: db }),
+  store: sessionStore,
   secret: process.env.SESSION_SECRET || randomBytes(32).toString('hex'),
   resave: false,
   saveUninitialized: false,
@@ -97,11 +108,23 @@ app.use('/uploads/', express.static(path.join(__dirname, '../uploads')));
 
 app.get('/sw.js', (_req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
-  res.sendFile(path.join(__dirname, '../dist/sw.js'));
+  res.sendFile(path.join(__dirname, IS_DEV ? '../public/sw.js' : '../dist/sw.js'));
 });
 
 app.use('/api', challengeRouter);
 app.use('/api/generate', aiLimiter, express.json({ limit: '10mb' }), aiRouter);
+
+app.use('/api', (req, res, next) => {
+  if (db.isAvailable) {
+    next();
+    return;
+  }
+
+  res.status(503).json({
+    error: 'Database unavailable in this development environment',
+    detail: db.error?.message || 'Failed to initialize better-sqlite3'
+  });
+});
 
 app.post('/api/signup', signupLimiter, signupHandler);
 app.post('/api/signin', signinHandler);
@@ -145,9 +168,6 @@ app.get('/api/admin/users-full', (req, res) => {
   const users = db.prepare('SELECT id, email, username, avatar_url, is_admin, email_verified, banned, created_at, ip FROM users ORDER BY created_at DESC').all();
   res.json({ users });
 });
-
-const IS_DEV = process.env.NODE_ENV !== 'production';
-const VITE_PORT = parseInt(process.env.VITE_PORT || '5173');
 
 if (IS_DEV) {
   const { createProxyMiddleware } = await import('http-proxy-middleware');
@@ -247,4 +267,15 @@ function shutdown() {
   if (shield.isUnderAttack) shield.endAttackAlert(systemState);
   server.close(() => { bare.close(); process.exit(0); });
   setTimeout(() => { bare.close(); process.exit(1); }, 5000);
+}
+
+async function createSessionStore() {
+  if (db.isAvailable) {
+    const { default: BetterSqlite3Session } = await import('better-sqlite3-session-store');
+    const SqliteStore = BetterSqlite3Session(session);
+    return new SqliteStore({ client: db });
+  }
+
+  console.warn('[session] using in-memory session store because the database is unavailable');
+  return new session.MemoryStore();
 }

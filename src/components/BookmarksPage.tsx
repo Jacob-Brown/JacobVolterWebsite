@@ -107,13 +107,13 @@ function FluidCanvas() {
 
 function getBookmarks(): { items: BookmarkItem[]; groups: BookmarkGroup[] } {
   try {
-    const raw = localStorage.getItem("petezah-bookmarks");
+    const raw = localStorage.getItem("jacobvolter-bookmarks");
     if (raw) return JSON.parse(raw);
   } catch {}
   return { items: [], groups: [] };
 }
 function saveBookmarks(data: { items: BookmarkItem[]; groups: BookmarkGroup[] }) {
-  try { localStorage.setItem("petezah-bookmarks", JSON.stringify(data)); } catch {}
+  try { localStorage.setItem("jacobvolter-bookmarks", JSON.stringify(data)); } catch {}
 }
 
 export function addBookmark(url: string, title: string) {

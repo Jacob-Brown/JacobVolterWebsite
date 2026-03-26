@@ -98,13 +98,13 @@ function FluidCanvas() {
 }
 
 export function getHistory(): HistoryEntry[] {
-  try { return JSON.parse(localStorage.getItem("petezah-history") || "[]"); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem("jacobvolter-history") || "[]"); } catch { return []; }
 }
 export function saveHistory(entries: HistoryEntry[]) {
-  try { localStorage.setItem("petezah-history", JSON.stringify(entries)); } catch {}
+  try { localStorage.setItem("jacobvolter-history", JSON.stringify(entries)); } catch {}
 }
 export function recordHistory(url: string, title: string, isProxied: boolean) {
-  if (!url || url.startsWith("petezah://") || url === "about:blank" || url === "https://") return;
+  if (!url || url.startsWith("jacobvolter://") || url === "about:blank" || url === "https://") return;
   const entries = getHistory();
   const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}&sz=32`;
   const newEntry: HistoryEntry = {

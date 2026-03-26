@@ -55,42 +55,42 @@ const DEFAULT_PRESETS: Preset[] = [
   {
     id: "games",
     label: "Games",
-    url: "petezah://games",
+    url: "jacobvolter://games",
     icon: "gamepad",
     builtIn: true,
   },
   {
     id: "ai",
     label: "AI",
-    url: "petezah://ai",
+    url: "jacobvolter://ai",
     icon: "bot",
     builtIn: true,
   },
   {
     id: "music",
     label: "Music",
-    url: "petezah://music",
+    url: "jacobvolter://music",
     icon: "music",
     builtIn: true,
   },
   {
     id: "movies",
     label: "Movies",
-    url: "petezah://movies",
+    url: "jacobvolter://movies",
     icon: "film",
     builtIn: true,
   },
   {
     id: "apps",
     label: "Apps",
-    url: "petezah://apps",
+    url: "jacobvolter://apps",
     icon: "appwindow",
     builtIn: true,
   },
   {
     id: "chat",
     label: "Chat",
-    url: "petezah://chat",
+    url: "jacobvolter://chat",
     icon: "chat",
     builtIn: true,
   },
@@ -383,7 +383,7 @@ function VpnSelector() {
 
 function getStoredPresets(): Preset[] {
   try {
-    const stored = localStorage.getItem("petezah-presets");
+    const stored = localStorage.getItem("jacobvolter-presets");
     if (stored) return JSON.parse(stored);
   } catch {}
   return DEFAULT_PRESETS;
@@ -391,7 +391,7 @@ function getStoredPresets(): Preset[] {
 
 function savePresetsToStorage(presets: Preset[]) {
   try {
-    localStorage.setItem("petezah-presets", JSON.stringify(presets));
+    localStorage.setItem("jacobvolter-presets", JSON.stringify(presets));
   } catch {}
 }
 
@@ -793,7 +793,7 @@ function NewTabPage({ onNavigate }: { onNavigate: (url: string) => void }) {
       >
         <div className="flex flex-col items-center gap-1.5">
           <h1 className="text-3xl font-bold text-foreground tracking-tight">
-            PeteZah
+            JacobVolter
           </h1>
           <p className="text-[11px] text-muted-foreground">
             Your all-in-one hub
@@ -933,19 +933,19 @@ function TabPane({
 }) {
   const isNewTab =
     !tab.url ||
-    tab.url === "petezah://newtab" ||
+    tab.url === "jacobvolter://newtab" ||
     tab.url === "about:blank" ||
     tab.url === "https://";
 
-  const isGames = tab.url === "petezah://games";
-  const isAI = tab.url === "petezah://ai";
-  const isApps = tab.url === "petezah://apps";
-  const isMusic = tab.url === "petezah://music";
-  const isChat = tab.url === "petezah://chat";
-  const isMovies = tab.url === "petezah://movies";
-  const isGameViewer = tab.url.startsWith("petezah://gameviewer");
-  const displayUrl = isGameViewer ? "petezah://gameviewer" : tab.url;
-  const isAppViewer = tab.url.startsWith("petezah://appviewer");
+  const isGames = tab.url === "jacobvolter://games";
+  const isAI = tab.url === "jacobvolter://ai";
+  const isApps = tab.url === "jacobvolter://apps";
+  const isMusic = tab.url === "jacobvolter://music";
+  const isChat = tab.url === "jacobvolter://chat";
+  const isMovies = tab.url === "jacobvolter://movies";
+  const isGameViewer = tab.url.startsWith("jacobvolter://gameviewer");
+  const displayUrl = isGameViewer ? "jacobvolter://gameviewer" : tab.url;
+  const isAppViewer = tab.url.startsWith("jacobvolter://appviewer");
   const isYoutube = tab.url.startsWith("https://www.youtube.com/") || tab.url.startsWith("https://youtube.com/") || tab.url.startsWith("youtube.com/");
   const isReddit = tab.url.startsWith("https://www.reddit.com/") || tab.url.startsWith("https://reddit.com/") || tab.url.startsWith("reddit.com/");
 
@@ -961,7 +961,7 @@ function TabPane({
         <GameViewerPage
           url={gameUrl}
           title={gameTitle}
-          onBack={() => onNavigate("petezah://games")}
+          onBack={() => onNavigate("jacobvolter://games")}
         />
       </div>
     );
@@ -1043,7 +1043,7 @@ function TabPane({
     );
   }
 
-  if (tab.url === "petezah://changelog") {
+  if (tab.url === "jacobvolter://changelog") {
     return (
       <div
         className="absolute inset-0"
@@ -1054,7 +1054,7 @@ function TabPane({
     );
   }
 
-  if (tab.url === "petezah://feedback") {
+  if (tab.url === "jacobvolter://feedback") {
     return (
       <div
         className="absolute inset-0"
@@ -1065,7 +1065,7 @@ function TabPane({
     );
   }
 
-  if (tab.url === "petezah://settings") {
+  if (tab.url === "jacobvolter://settings") {
   return (
     <div
       className="absolute inset-0"
@@ -1076,7 +1076,7 @@ function TabPane({
   );
 }
 
-  if (tab.url === "petezah://account") {
+  if (tab.url === "jacobvolter://account") {
     return (
       <div
         className="absolute inset-0"
@@ -1087,7 +1087,7 @@ function TabPane({
     );
   }
 
-  if (tab.url === "petezah://history") {
+  if (tab.url === "jacobvolter://history") {
     return (
       <div
         className="absolute inset-0"
@@ -1097,7 +1097,7 @@ function TabPane({
       </div>
     );
   }
-  if (tab.url === "petezah://extensions") {
+  if (tab.url === "jacobvolter://extensions") {
     return (
       <div
         className="absolute inset-0"
@@ -1107,7 +1107,7 @@ function TabPane({
       </div>
     );
   }
-  if (tab.url === "petezah://bookmarks") {
+  if (tab.url === "jacobvolter://bookmarks") {
     return (
       <div
         className="absolute inset-0"
@@ -1130,7 +1130,7 @@ function TabPane({
         <AppViewerPage
           url={appUrl}
           title={appTitle}
-          onBack={() => onNavigate("petezah://apps")}
+          onBack={() => onNavigate("jacobvolter://apps")}
         />
       </div>
     );

@@ -21,10 +21,10 @@ interface AppsPageProps {
 
 const BUILT_IN_APPS: App[] = [
   { id: "app-request", label: "App Request", url: "https://docs.google.com/forms/d/e/1FAIpQLSfDWiLkFUAcAsVVzb57HFW1xfGY3dSUwbMUhDdinsyESCCYeg/viewform?usp=sf_link", imageUrl: "/storage/images/main/googleforms.jpg", external: true },
-  { id: "pete-ai", label: "PeteAI", url: "petezah://ai", imageUrl: "/storage/images/PeteAI.png", external: true },
-  { id: "pete-music", label: "Music", url: "petezah://music", imageUrl: "/storage/images/petemusic-removebg-preview.png", external: true },
-  { id: "pete-movies", label: "Movies", url: "petezah://movies", imageUrl: "/storage/images/pete-movies.png", external: true },
-  { id: "pete-chat", label: "PeteChat", url: "petezah://chat", imageUrl: "/storage/images/vortex-petezah.webp", external: true },
+  { id: "jacob-ai", label: "JacobAI", url: "jacobvolter://ai", imageUrl: "/storage/images/PeteAI.png", external: true },
+  { id: "jacob-music", label: "Music", url: "jacobvolter://music", imageUrl: "/storage/images/petemusic-removebg-preview.png", external: true },
+  { id: "jacob-movies", label: "Movies", url: "jacobvolter://movies", imageUrl: "/storage/images/pete-movies.png", external: true },
+  { id: "jacob-chat", label: "JacobChat", url: "jacobvolter://chat", imageUrl: "/storage/images/vortex-petezah.webp", external: true },
   { id: "google", label: "Google", url: "https://www.google.com", imageUrl: "/storage/ag/apps/google/IMG_5324.webp" },
   { id: "youtube", label: "YouTube", url: "https://youtube.com", imageUrl: "/storage/ag/apps/youtube/IMG_5338.webp" },
   { id: "nowgg", label: "Now.gg", url: "https://now.gg", imageUrl: "/storage/ag/apps/nowgg/IMG_5325.png" },
@@ -368,10 +368,10 @@ export default function AppsPage({ onNavigate }: AppsPageProps) {
 
   const handleOpen = useCallback((app: App) => {
     if (!onNavigate) return;
-    if (app.external || app.url.startsWith("petezah://") || app.url.includes("docs.google.com/forms")) {
+    if (app.external || app.url.startsWith("jacobvolter://") || app.url.includes("docs.google.com/forms")) {
       onNavigate(app.url);
     } else {
-      onNavigate(`petezah://appviewer?url=${encodeURIComponent(app.url)}&title=${encodeURIComponent(app.label)}`);
+      onNavigate(`jacobvolter://appviewer?url=${encodeURIComponent(app.url)}&title=${encodeURIComponent(app.label)}`);
     }
   }, [onNavigate]);
 

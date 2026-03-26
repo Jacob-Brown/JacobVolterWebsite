@@ -3,6 +3,10 @@ import fetch from 'node-fetch';
 import { blockIPKernel } from '../security/xdp-integration.js';
 
 export let TOKEN_SECRET = process.env.TOKEN_SECRET || '';
+
+export function setTokenSecret(secret) {
+  TOKEN_SECRET = secret || '';
+}
 const TOKEN_VALIDITY = 3600000;
 const BASE_POW_DIFFICULTY = 16;
 const MAX_POW_DIFFICULTY = 22;

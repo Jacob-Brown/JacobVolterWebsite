@@ -43,12 +43,12 @@ interface SidebarProps {
 }
 
 const SIDEBAR_FEATURES = [
-  { icon: Gamepad2, label: "Games", url: "petezah://games" },
-  { icon: AppWindow, label: "Apps", url: "petezah://apps" },
-  { icon: Bot, label: "AI", url: "petezah://ai" },
-  { icon: Music, label: "Music", url: "petezah://music" },
-  { icon: Film, label: "Movies", url: "petezah://movies" },
-  { icon: MessageCircle, label: "Chat", url: "petezah://chat" },
+  { icon: Gamepad2, label: "Games", url: "jacobvolter://games" },
+  { icon: AppWindow, label: "Apps", url: "jacobvolter://apps" },
+  { icon: Bot, label: "AI", url: "jacobvolter://ai" },
+  { icon: Music, label: "Music", url: "jacobvolter://music" },
+  { icon: Film, label: "Movies", url: "jacobvolter://movies" },
+  { icon: MessageCircle, label: "Chat", url: "jacobvolter://chat" },
 ];
 
 export default function Sidebar({
@@ -93,13 +93,13 @@ export default function Sidebar({
             className="flex items-center gap-2"
           >
             <span className="text-sm font-semibold text-foreground tracking-tight">
-              PeteZah
+              JacobVolter
             </span>
           </motion.div>
         )}
         <div className="flex flex-col items-center gap-1">
           <button
-            onClick={() => onNavigate("petezah://newtab")}
+            onClick={() => onNavigate("jacobvolter://newtab")}
             className="p-1.5 rounded-lg hover:bg-accent transition-colors"
           >
             <img
@@ -202,21 +202,21 @@ export default function Sidebar({
 
             <div className="flex items-center gap-1 mb-1.5">
               <button
-                onClick={() => onNavigate("petezah://bookmarks")}
+                onClick={() => onNavigate("jacobvolter://bookmarks")}
                 className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg hover:bg-accent transition-all text-foreground/50 hover:text-foreground"
               >
                 <Bookmark size={11} />
                 <span className="text-[10px]">Saved</span>
               </button>
               <button
-                onClick={() => onNavigate("petezah://history")}
+                onClick={() => onNavigate("jacobvolter://history")}
                 className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg hover:bg-accent transition-all text-foreground/50 hover:text-foreground"
               >
                 <History size={11} />
                 <span className="text-[10px]">History</span>
               </button>
               <button
-                onClick={() => onNavigate("petezah://extensions")}
+                onClick={() => onNavigate("jacobvolter://extensions")}
                 className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg hover:bg-accent transition-all text-foreground/50 hover:text-foreground"
               >
                 <Puzzle size={11} />

@@ -7,10 +7,10 @@ function getFaviconUrl(url: string): string {
   try {
     if (
       !url ||
-      url === "petezah://newtab" ||
+      url === "jacobvolter://newtab" ||
       url === "about:blank" ||
       url === "https://" ||
-      url.startsWith("petezah://")
+      url.startsWith("jacobvolter://")
     ) {
       return "";
     }
@@ -46,28 +46,28 @@ const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
     },
     ref,
   ) => {
-    const petezahIcons: Record<string, string> = {
-      "petezah://newtab": "N",
-      "petezah://games": "G",
-      "petezah://ai": "AI",
-      "petezah://apps": "AP",
-      "petezah://music": "M",
-      "petezah://movies": "MV",
-      "petezah://gameviewer": "GV",
-      "petezah://settings": "S",
-      "petezah://account": "AC",
-      "petezah://changelog": "CL",
-      "petezah://feedback": "FB",
+    const jacobvolterIcons: Record<string, string> = {
+      "jacobvolter://newtab": "N",
+      "jacobvolter://games": "G",
+      "jacobvolter://ai": "AI",
+      "jacobvolter://apps": "AP",
+      "jacobvolter://music": "M",
+      "jacobvolter://movies": "MV",
+      "jacobvolter://gameviewer": "GV",
+      "jacobvolter://settings": "S",
+      "jacobvolter://account": "AC",
+      "jacobvolter://changelog": "CL",
+      "jacobvolter://feedback": "FB",
     };
 
     const isNewTab =
       !tab.url ||
-      tab.url === "petezah://newtab" ||
+      tab.url === "jacobvolter://newtab" ||
       tab.url === "about:blank" ||
       tab.url === "https://" ||
-      tab.url.startsWith("petezah://");
+      tab.url.startsWith("jacobvolter://");
 
-    const petezahIcon = tab.url ? petezahIcons[tab.url] : undefined;
+    const jacobvolterIcon = tab.url ? jacobvolterIcons[tab.url] : undefined;
 
     const faviconSrc = tab.favicon || getFaviconUrl(tab.url);
     const showFavicon = !isNewTab && !!faviconSrc;
@@ -112,7 +112,7 @@ const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
               />
             ) : (
               <span className="text-[10px] font-medium text-foreground/60">
-                {petezahIcon ?? displayTitle[0]?.toUpperCase()}
+                {jacobvolterIcon ?? displayTitle[0]?.toUpperCase()}
               </span>
             )}
           </motion.button>
@@ -156,7 +156,7 @@ const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
             />
           ) : (
             <span className="relative z-10 text-[11px]">
-              {petezahIcon ?? displayTitle[0]?.toUpperCase()}
+              {jacobvolterIcon ?? displayTitle[0]?.toUpperCase()}
             </span>
           )}
         </div>
