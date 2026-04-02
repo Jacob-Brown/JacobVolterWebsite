@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Dices, Plus, Star, MoreVertical, X, Trash2, Share2, Copy, Check, Upload } from "lucide-react";
+import ParticlesBackground from "./ParticlesBackground";
 
 const CATEGORIES = ["All", "Action", "Racing", "Strategy", "Sports", "Skill", "Shooting", "2 Player", "Io"];
 
@@ -358,6 +359,12 @@ function GameCard({ game, isFav, onPlay, onOptions }: {
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         loading="lazy"
         decoding="async"
+        onError={(e) => {
+          const img = e.currentTarget;
+          if (img.dataset.fallbackApplied === "1") return;
+          img.dataset.fallbackApplied = "1";
+          img.src = "/storage/images/main/arcade.jpg";
+        }}
       />
 
       <div
@@ -405,9 +412,8 @@ export default function GamesPage({ onNavigate }: GamesPageProps) {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("/storage/data/collection.json");
-        const data = await res.json();
-        const remote: Game[] = data.games.map((g: Game) => ({ ...g, id: generateGameId(g), isCustom: false }));
+        const res = await fetch("/api/games-list");
+        const remote: Game[] = await res.json();
         const custom = getCustomGames();
         const hidden = getHiddenGames();
         setAllGames([...custom, ...remote].filter(g => !hidden.includes(g.id)));
@@ -481,6 +487,7 @@ export default function GamesPage({ onNavigate }: GamesPageProps) {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       <FluidCanvas />
+      <ParticlesBackground />
 
       <div
         className="flex-shrink-0 relative z-10 px-6 pt-5 pb-3"
