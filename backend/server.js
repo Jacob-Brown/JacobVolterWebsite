@@ -35,6 +35,7 @@ import { likeHandler, getLikesHandler } from './api/likes.js';
 import { adminUserActionHandler } from './api/admin-user-action.js';
 import { getChangelogHandler, createChangelogHandler, deleteChangelogHandler } from './api/changelog.js';
 import { getFeedbackHandler, createFeedbackHandler, deleteFeedbackHandler } from './api/feedback.js';
+import { getGamesListHandler } from './api/games.js';
 
 const { createBareServer } = bareServerPkg;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -105,16 +106,24 @@ app.use('/scram/', express.static(scramjetPath));
 app.use('/baremux/', express.static(baremuxPath));
 app.use('/epoxy/', express.static(epoxyPath));
 app.use('/uploads/', express.static(path.join(__dirname, '../uploads')));
+app.use('/storage/', express.static(path.join(__dirname, '../public/storage')));
+app.use('/public/', express.static(path.join(__dirname, '../public')));
 
 app.get('/sw.js', (_req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
-  res.sendFile(path.join(__dirname, IS_DEV ? '../public/sw.js' : '../dist/sw.js'));
+  res.sendFile(path.join(__dirname, '../public/sw.js'));
 });
 
 app.use('/api', challengeRouter);
 app.use('/api/generate', aiLimiter, express.json({ limit: '10mb' }), aiRouter);
 
 app.use('/api', (req, res, next) => {
+  // Allow games list endpoint even without database
+  if (req.path === '/games-list') {
+    next();
+    return;
+  }
+
   if (db.isAvailable) {
     next();
     return;
@@ -149,6 +158,8 @@ app.post('/api/comment', addCommentHandler);
 app.get('/api/comments', getCommentsHandler);
 app.post('/api/comment/delete', deleteCommentHandler);
 
+app.get('/api/games-list', getGamesListHandler);
+
 app.post('/api/likes', likeHandler);
 app.get('/api/likes', getLikesHandler);
 
@@ -174,6 +185,7 @@ if (IS_DEV) {
   app.use('/', createProxyMiddleware({ target: `http://localhost:${VITE_PORT}`, changeOrigin: true, ws: false }));
 } else {
   app.use(express.static(path.join(__dirname, '../dist')));
+  app.use(express.static(path.join(__dirname, '../public')));
   app.get('*', (_req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')));
 }
 
