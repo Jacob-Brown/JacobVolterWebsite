@@ -41,17 +41,20 @@ function saveHiddenGames(hidden: string[]) {
 }
 
 function resolveGameUrl(url: string): string {
-  if (!url) return url;
-  if (url.startsWith("http://") || url.startsWith("https://")) return url;
-  if (url.startsWith("/iframe.html?url=")) {
-    const inner = url.slice("/iframe.html?url=".length);
-    const decoded = decodeURIComponent(inner);
-    if (decoded.startsWith("http://") || decoded.startsWith("https://")) return decoded;
-    return window.location.origin + decoded;
-  }
-  return window.location.origin + url;
-}
+  if (!url) return "";
 
+  // If it's already a full HTTP(S) link, return as-is
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+
+  // Normalize slashes
+  const cleanUrl = url.replace(/^\/+|\/+$/g, "");
+
+  // If it already starts with games-lib, just append index.html
+  if (cleanUrl.startsWith("games-lib/")) return `/${cleanUrl}/index.html`;
+
+  // Otherwise, treat it as a folder under games-lib
+  return `/games-lib/${cleanUrl}/index.html`;
+}
 function FluidCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>(0);
